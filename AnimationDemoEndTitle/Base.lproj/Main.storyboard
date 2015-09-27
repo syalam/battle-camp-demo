@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="levelBG.png" translatesAutoresizingMaskIntoConstraints="NO" id="BbF-6P-U1D">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZ2-GJ-N3L">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.086274509799999996" green="0.08235294118" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GtD-Ka-EGo" customClass="LevelNumberView">
+                                <rect key="frame" x="0.0" y="50" width="600" height="550"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YN7-6y-yTM" customClass="LevelUpTitleView">
+                                <rect key="frame" x="0.0" y="15" width="600" height="90"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="3Uv-jU-xzk"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BbF-6P-U1D" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="16J-Cc-hxc"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="bZ2-GJ-N3L" secondAttribute="bottom" id="1T4-WO-66j"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BbF-6P-U1D" secondAttribute="trailing" constant="-20" id="3aW-xZ-yBX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GtD-Ka-EGo" secondAttribute="trailing" constant="-20" id="8a8-Oq-zh8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YN7-6y-yTM" secondAttribute="trailing" constant="-20" id="Cwa-4O-fSj"/>
+                            <constraint firstItem="bZ2-GJ-N3L" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="GQm-X2-IhE"/>
+                            <constraint firstItem="BbF-6P-U1D" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="Ix0-Jz-wIa"/>
+                            <constraint firstItem="bZ2-GJ-N3L" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="NVh-Ob-LjL"/>
+                            <constraint firstItem="GtD-Ka-EGo" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="50" id="SGI-6s-BVz"/>
+                            <constraint firstItem="GtD-Ka-EGo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="VXI-0N-2cl"/>
+                            <constraint firstItem="YN7-6y-yTM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="YcC-G1-bEm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bZ2-GJ-N3L" secondAttribute="trailing" constant="-20" id="yNV-HG-Xg0"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BbF-6P-U1D" secondAttribute="bottom" id="yZE-V2-mye"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="GtD-Ka-EGo" secondAttribute="bottom" id="yby-Ht-hZH"/>
+                            <constraint firstItem="YN7-6y-yTM" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="15" id="zMH-zZ-A57"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="animatedLevelNumberView" destination="GtD-Ka-EGo" id="DyH-PU-dbx"/>
+                        <outlet property="animatedTitleView" destination="YN7-6y-yTM" id="E5D-SJ-iyk"/>
+                        <outlet property="darkOverlay" destination="bZ2-GJ-N3L" id="Vvx-ps-zod"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="305" y="429"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="levelBG.png" width="320" height="480"/>
+    </resources>
+</document>
