@@ -152,7 +152,7 @@
     ////Group animation
     CAKeyframeAnimation * GroupTransformAnim = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
     GroupTransformAnim.values   = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.1, 0.1, 1)],
-                                    [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.3, 1.3, 1)],
+                                    [NSValue valueWithCATransform3D:CATransform3DMakeScale(2.1, 2.1, 1)],
                                     [NSValue valueWithCATransform3D:CATransform3DIdentity]];
     GroupTransformAnim.keyTimes = @[@0, @0.593, @1];
     GroupTransformAnim.duration = 0.492;

@@ -11,11 +11,14 @@ IB_DESIGNABLE
 @interface LevelNumberView : UIView
 
 
+@property (nonatomic, assign) CGFloat  NumberCrashingAnimProgress;
 
 - (void)addNumberCrashingAnimation;
 - (void)addNumberCrashingAnimationCompletionBlock:(void (^)(BOOL finished))completionBlock;
+- (void)addNumberCrashingAnimationTotalDuration:(CFTimeInterval)totalDuration completionBlock:(void (^)(BOOL finished))completionBlock;
 - (void)addNumberRattlingAnimation;
 - (void)addNumberRattlingAnimationCompletionBlock:(void (^)(BOOL finished))completionBlock;
+- (void)addNumberRattlingAnimationTotalDuration:(CFTimeInterval)totalDuration completionBlock:(void (^)(BOOL finished))completionBlock;
 - (void)removeAnimationsForAnimationId:(NSString *)identifier;
 - (void)removeAllAnimations;
 

@@ -10,6 +10,7 @@
 IB_DESIGNABLE
 @interface LevelUpTitleView : UIView
 
+@property (nonatomic, strong) UILabel * titleLabel;
 
 
 - (void)addDisplayAnimation;

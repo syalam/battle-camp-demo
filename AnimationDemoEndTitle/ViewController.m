@@ -30,6 +30,19 @@
     
     [self resetAnimations];
     
+    
+    
+    NSString * titleString = @"Testing Custom Text";
+    
+    NSDictionary*  textAttributes = @{NSFontAttributeName: [UIFont fontWithName:@"GillSans-Light" size:22],
+                                      NSForegroundColorAttributeName: [UIColor whiteColor],
+                                      NSKernAttributeName: @4};
+    
+    NSAttributedString * textAttributedText = [[NSAttributedString alloc] initWithString:titleString attributes:textAttributes];
+    
+    
+    self.animatedTitleView.titleLabel.attributedText = textAttributedText;
+    
     self.animatedRewardBox1.rewardIcon = [UIImage imageNamed:@"spinIcon"];
     self.animatedRewardBox1.rewardText = @"1 Ultimate Spin";
     
@@ -121,8 +134,10 @@
         self.animatedLevelNumberView.alpha = 1.0;
     }];
     
-    [_animatedLevelNumberView addNumberCrashingAnimationCompletionBlock:^(BOOL finished) {
-        [_animatedLevelNumberView addNumberRattlingAnimationCompletionBlock:^(BOOL finished) {
+    
+    __weak ViewController * weakSelf = self;
+    [self.animatedLevelNumberView addNumberCrashingAnimationCompletionBlock:^(BOOL finished) {
+        [weakSelf.animatedLevelNumberView addNumberRattlingAnimationCompletionBlock:^(BOOL finished) {
             
         }];
         

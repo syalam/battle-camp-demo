@@ -1,7 +1,7 @@
 //
 //  LevelUpTitleView.m
 //
-//  Code generated using QuartzCode 1.37.2 on 9/26/15.
+//  Code generated using QuartzCode 1.38.3 on 9/28/15.
 //  www.quartzcodeapp.com
 //
 
@@ -18,6 +18,8 @@
 @end
 
 @implementation LevelUpTitleView
+
+@synthesize titleLabel;
 
 #pragma mark - Life Cycle
 
@@ -58,13 +60,14 @@
 }
 
 - (void)setupLayers{
-    CALayer * outeredgeglow = [CALayer layer];
-    [self.layer addSublayer:outeredgeglow];
+    
+    UIView*  outeredgeglow       = [[UIView alloc] initWithFrame:CGRectMake(-40, -0, 401, 90)];
+    [self addSubview:outeredgeglow];
     self.layers[@"outeredgeglow"] = outeredgeglow;
     
-    CATextLayer * text = [CATextLayer layer];
-    [self.layer addSublayer:text];
-    self.layers[@"text"] = text;
+    
+    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0.36306 * CGRectGetHeight(self.bounds), CGRectGetWidth(self.bounds), 0.27387 * CGRectGetHeight(self.bounds))];;
+    [self  addSubview:titleLabel];
     
     [self resetLayerPropertiesForLayerIdentifiers:nil];
     [self setupLayerFrames];
@@ -75,19 +78,23 @@
     [CATransaction setDisableActions:YES];
     
     if(!layerIds || [layerIds containsObject:@"outeredgeglow"]){
-        CALayer * outeredgeglow = self.layers[@"outeredgeglow"];
-        outeredgeglow.contents = (id)[UIImage imageNamed:@"outer-edge-glow"].CGImage;
+        UIView * outeredgeglow = self.layers[@"outeredgeglow"];
+        
+        outeredgeglow.layer.contents = (id)[UIImage imageNamed:@"outer-edge-glow"].CGImage;
     }
-    if(!layerIds || [layerIds containsObject:@"text"]){
-        CATextLayer * text = self.layers[@"text"];
-        text.alignmentMode            = kCAAlignmentCenter;
-        text.contentsScale            = [[UIScreen mainScreen] scale];
+    if(!layerIds || titleLabel){
+        
+        titleLabel.numberOfLines = 2;
+        titleLabel.clipsToBounds = NO;
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.lineBreakMode = NSLineBreakByClipping;
+        
         NSDictionary*  textAttributes = @{NSFontAttributeName: [UIFont fontWithName:@"GillSans-Light" size:22],
-                                          (id)NSForegroundColorAttributeName: (id)[UIColor whiteColor].CGColor,
+                                          NSForegroundColorAttributeName: [UIColor whiteColor],
                                           NSKernAttributeName: @4};
-        NSString * textText           = @"LEVEL UP";
+        NSString * textText = @"LEVEL UP";
         NSAttributedString * textAttributedText = [[NSAttributedString alloc] initWithString:textText attributes:textAttributes];;
-        text.string = textAttributedText;
+        titleLabel.attributedText = textAttributedText;
     }
     
     [CATransaction commit];
@@ -97,11 +104,10 @@
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     
-    CALayer * outeredgeglow = self.layers[@"outeredgeglow"];
-    outeredgeglow.frame     = CGRectMake(-0.12656 * CGRectGetWidth(outeredgeglow.superlayer.bounds), -0.00556 * CGRectGetHeight(outeredgeglow.superlayer.bounds), 1.25312 * CGRectGetWidth(outeredgeglow.superlayer.bounds), 1.00556 * CGRectGetHeight(outeredgeglow.superlayer.bounds));
+    UIView * outeredgeglow = self.layers[@"outeredgeglow"];
+    outeredgeglow.frame    = CGRectMake(-0.12656 * CGRectGetWidth(outeredgeglow.layer.superlayer.bounds), -0.00750 * CGRectGetHeight(outeredgeglow.layer.superlayer.bounds), 1.25312 * CGRectGetWidth(outeredgeglow.layer.superlayer.bounds), 1.00750 * CGRectGetHeight(outeredgeglow.layer.superlayer.bounds));
     
-    CATextLayer * text      = self.layers[@"text"];
-    text.frame              = CGRectMake(0.13155 * CGRectGetWidth(text.superlayer.bounds), 0.36306 * CGRectGetHeight(text.superlayer.bounds), 0.73846 * CGRectGetWidth(text.superlayer.bounds), 0.27387 * CGRectGetHeight(text.superlayer.bounds));
+    titleLabel.frame             = CGRectMake(0, 0.36306 * CGRectGetHeight(self.bounds), CGRectGetWidth(self.bounds), 0.29 * CGRectGetHeight(self.bounds));
     
     [CATransaction commit];
 }
@@ -113,9 +119,13 @@
 }
 
 - (void)addDisplayAnimationCompletionBlock:(void (^)(BOOL finished))completionBlock{
+    [self addDisplayAnimationTotalDuration:1.199 completionBlock:completionBlock];
+}
+
+- (void)addDisplayAnimationTotalDuration:(CFTimeInterval)totalDuration completionBlock:(void (^)(BOOL finished))completionBlock{
     if (completionBlock){
         CABasicAnimation * completionAnim = [CABasicAnimation animationWithKeyPath:@"completionAnim"];;
-        completionAnim.duration = 1.199;
+        completionAnim.duration = totalDuration;
         completionAnim.delegate = self;
         [completionAnim setValue:@"Display" forKey:@"animId"];
         [completionAnim setValue:@(NO) forKey:@"needEndAnim"];
@@ -125,42 +135,34 @@
     
     NSString * fillMode = kCAFillModeForwards;
     
-    CALayer * outeredgeglow = self.layers[@"outeredgeglow"];
+    UIView * outeredgeglow = self.layers[@"outeredgeglow"];
+    [UIView animateKeyframesWithDuration:0 delay:0 options:0 animations:^{
+        [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:0.34 animations:^{
+            outeredgeglow.transform = CGAffineTransformMakeScale(0.7, 0.4);
+        }];
+        [UIView addKeyframeWithRelativeStartTime:0.34 relativeDuration:0.66 animations:^{
+            outeredgeglow.transform = CGAffineTransformIdentity;
+        }];
+    } completion:^(BOOL finished) {
+    }];
     
-    ////Outeredgeglow animation
-    CAKeyframeAnimation * outeredgeglowTransformAnim = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    outeredgeglowTransformAnim.values    = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.1, 0.1, 1)],
-                                             [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.7, 0.4, 1)],
-                                             [NSValue valueWithCATransform3D:CATransform3DIdentity]];
-    outeredgeglowTransformAnim.keyTimes  = @[@0, @0.345, @1];
-    outeredgeglowTransformAnim.duration  = 0.27;
-    outeredgeglowTransformAnim.beginTime = 0.294;
-    
-    CAKeyframeAnimation * outeredgeglowHiddenAnim = [CAKeyframeAnimation animationWithKeyPath:@"hidden"];
-    outeredgeglowHiddenAnim.values   = @[@YES, @YES, @NO];
-    outeredgeglowHiddenAnim.keyTimes = @[@0, @0.892, @1];
-    outeredgeglowHiddenAnim.duration = 0.333;
-    
-    CAAnimationGroup * outeredgeglowDisplayAnim = [QCMethod groupAnimations:@[outeredgeglowTransformAnim, outeredgeglowHiddenAnim] fillMode:fillMode];
-    [self.layers[@"outeredgeglow"] addAnimation:outeredgeglowDisplayAnim forKey:@"outeredgeglowDisplayAnim"];
-    
-    CATextLayer * text = self.layers[@"text"];
+    //CATextLayer * text = self.layers[@"text"];
     
     ////Text animation
     CAKeyframeAnimation * textPositionAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    textPositionAnim.values                = @[[NSValue valueWithCGPoint:CGPointMake(1.25 * CGRectGetWidth(text.superlayer.bounds), 0.5 * CGRectGetHeight(text.superlayer.bounds))], [NSValue valueWithCGPoint:CGPointMake(1.25 * CGRectGetWidth(text.superlayer.bounds), 0.5 * CGRectGetHeight(text.superlayer.bounds))], [NSValue valueWithCGPoint:CGPointMake(0.50078 * CGRectGetWidth(text.superlayer.bounds), 0.5 * CGRectGetHeight(text.superlayer.bounds))]];
+    textPositionAnim.values                = @[[NSValue valueWithCGPoint:CGPointMake(1.25 * CGRectGetWidth(self.bounds), 0.5 * CGRectGetHeight(self.bounds))], [NSValue valueWithCGPoint:CGPointMake(1.25 * CGRectGetWidth(self.bounds), 0.5 * CGRectGetHeight(self.bounds))], [NSValue valueWithCGPoint:CGPointMake(0.50078 * CGRectGetWidth(self.bounds), 0.5 * CGRectGetHeight(self.bounds))]];
     textPositionAnim.keyTimes              = @[@0, @0.19, @1];
-    textPositionAnim.duration              = 0.905;
-    textPositionAnim.beginTime             = 0.294;
+    textPositionAnim.duration              = 0.755 * totalDuration;
+    textPositionAnim.beginTime             = 0.245 * totalDuration;
     textPositionAnim.timingFunction        = [CAMediaTimingFunction functionWithControlPoints:0.321 :0.0204 :-0.206 :0.735];
     
     CAKeyframeAnimation * textHiddenAnim = [CAKeyframeAnimation animationWithKeyPath:@"hidden"];
     textHiddenAnim.values                = @[@YES, @YES, @NO];
     textHiddenAnim.keyTimes              = @[@0, @0.884, @1];
-    textHiddenAnim.duration              = 0.333;
+    textHiddenAnim.duration              = 0.277 * totalDuration;
     
     CAAnimationGroup * textDisplayAnim = [QCMethod groupAnimations:@[textPositionAnim, textHiddenAnim] fillMode:fillMode];
-    [self.layers[@"text"] addAnimation:textDisplayAnim forKey:@"textDisplayAnim"];
+    [titleLabel.layer addAnimation:textDisplayAnim forKey:@"textDisplayAnim"];
 }
 
 #pragma mark - Animation Cleanup
@@ -187,13 +189,19 @@
 - (void)removeAnimationsForAnimationId:(NSString *)identifier{
     if([identifier isEqualToString:@"Display"]){
         [self.layers[@"outeredgeglow"] removeAnimationForKey:@"outeredgeglowDisplayAnim"];
-        [self.layers[@"text"] removeAnimationForKey:@"textDisplayAnim"];
+        [titleLabel.layer removeAnimationForKey:@"textDisplayAnim"];
     }
 }
 
 - (void)removeAllAnimations{
     [self.layers enumerateKeysAndObjectsUsingBlock:^(id key, CALayer *layer, BOOL *stop) {
-        [layer removeAllAnimations];
+        
+        if ([layer.class isSubclassOfClass:UIView.class]) {
+            [[(UIView *)layer layer] removeAllAnimations];
+        }else{
+            [layer removeAllAnimations];
+        }
+        
     }];
 }
 
