@@ -87,7 +87,7 @@ typedef enum {
 -(void)handleSpeedChange:(UISegmentedControl *)sender
 {
     
-    if(!self.isAnimating){
+    //if(!self.isAnimating){
         
         switch (sender.selectedSegmentIndex) {
             case 0:{
@@ -106,7 +106,7 @@ typedef enum {
             default:
                 break;
         }
-    }
+    //}
     
     
 }

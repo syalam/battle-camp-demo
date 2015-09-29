@@ -178,10 +178,10 @@
     
     ////TopUpArrow animation
     CAKeyframeAnimation * topUpArrowTransformAnim = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    topUpArrowTransformAnim.values         = @[[NSValue valueWithCATransform3D:CATransform3DConcat(CATransform3DMakeScale(0.3, 3, 1), CATransform3DMakeTranslation(0, 0.83333 * CGRectGetHeight(topUpArrow.superlayer.bounds), 0))],
+    topUpArrowTransformAnim.values         = @[[NSValue valueWithCATransform3D:CATransform3DConcat(CATransform3DMakeScale(0.3, 3, 1), CATransform3DMakeTranslation(0, 1.25 * CGRectGetHeight(topUpArrow.superlayer.bounds), 0))],
                                                [NSValue valueWithCATransform3D:CATransform3DIdentity]];
-    topUpArrowTransformAnim.keyTimes       = @[@0.0667, @1];
-    topUpArrowTransformAnim.duration       = 0.357 * totalDuration;
+    topUpArrowTransformAnim.keyTimes       = @[@0, @1];
+    topUpArrowTransformAnim.duration       = 0.453 * totalDuration;
     topUpArrowTransformAnim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     
     CAAnimationGroup * topUpArrowNumberCrashingAnim = [QCMethod groupAnimations:@[topUpArrowTransformAnim] fillMode:fillMode];
@@ -191,18 +191,19 @@
     
     ////UpArrow animation
     CAKeyframeAnimation * upArrowTransformAnim = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    
-    
-    
-    
-    upArrowTransformAnim.values         = @[[NSValue valueWithCATransform3D:CATransform3DConcat(CATransform3DMakeScale(0.5, 2.5, 1.0), CATransform3DMakeTranslation(0, 1.25 * CGRectGetHeight(upArrow.superlayer.bounds), 0.0))],
+    upArrowTransformAnim.values         = @[[NSValue valueWithCATransform3D:CATransform3DConcat(CATransform3DMakeScale(0.3, 3, 1), CATransform3DMakeTranslation(0, 1.3542 * CGRectGetHeight(upArrow.superlayer.bounds), 0))],
                                             [NSValue valueWithCATransform3D:CATransform3DIdentity]];
     upArrowTransformAnim.keyTimes       = @[@0, @1];
-    upArrowTransformAnim.duration       = 0.448 * totalDuration;
-    upArrowTransformAnim.beginTime      = 0.121 * totalDuration;
+    upArrowTransformAnim.duration       = 0.453 * totalDuration;
+    upArrowTransformAnim.beginTime      = 0.104 * totalDuration;
     upArrowTransformAnim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     
-    CAAnimationGroup * upArrowNumberCrashingAnim = [QCMethod groupAnimations:@[upArrowTransformAnim] fillMode:fillMode];
+    CAKeyframeAnimation * upArrowHiddenAnim = [CAKeyframeAnimation animationWithKeyPath:@"hidden"];
+    upArrowHiddenAnim.values   = @[@YES, @YES, @NO];
+    upArrowHiddenAnim.keyTimes = @[@0, @0.677, @1];
+    upArrowHiddenAnim.duration = 0.12 * totalDuration;
+    
+    CAAnimationGroup * upArrowNumberCrashingAnim = [QCMethod groupAnimations:@[upArrowTransformAnim, upArrowHiddenAnim] fillMode:fillMode];
     [upArrow addAnimation:upArrowNumberCrashingAnim forKey:@"upArrowNumberCrashingAnim"];
     
     CATextLayer * text = self.layers[@"text"];
