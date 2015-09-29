@@ -8,10 +8,17 @@
 
 #import "ViewController.h"
 
+typedef enum {
+    AnimationSpeedNormal = 1,
+    AnimationSpeedSlow = 2
+}AnimationSpeed;
+
 @interface ViewController ()
 
 @property (nonatomic, assign) BOOL isAnimating;
 @property (nonatomic, assign) BOOL isFinishedAnimating;
+
+@property (nonatomic, assign) AnimationSpeed animationSpeed;
 
 @end
 
@@ -20,6 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    self.animationSpeed = AnimationSpeedSlow;
     
     self.isAnimating = NO;
     self.isFinishedAnimating = NO;
@@ -32,7 +42,7 @@
     
     
     
-    NSString * titleString = @"Testing Custom Text";
+    NSString * titleString = @"LEVEL UP";
     
     NSDictionary*  textAttributes = @{NSFontAttributeName: [UIFont fontWithName:@"GillSans-Light" size:22],
                                       NSForegroundColorAttributeName: [UIColor whiteColor],
@@ -54,6 +64,24 @@
     
 }
 
+-(CGFloat)adjustedDuration:(CGFloat)duration
+{
+    
+    CGFloat adjustment = 1.0;
+    
+    switch (self.animationSpeed) {
+        case AnimationSpeedSlow:
+        {
+            adjustment = 2.0;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    return  duration * adjustment;
+    
+}
 
 -(void)handleUserTap:(id)sender {
     
@@ -99,18 +127,20 @@
 
 -(void)startRewardAnimation:(NSNumber *)index
 {
+    NSTimeInterval rewardAnimation = [self adjustedDuration:0.5];
+    
     switch (index.integerValue) {
         case 1:
             self.animatedRewardBox1.alpha = 1.0;
-            [self.animatedRewardBox1 addShowRewardBoxAnimation];
+            [self.animatedRewardBox1 addShowRewardBoxAnimationTotalDuration:rewardAnimation completionBlock:nil];
             break;
         case 2:
             self.animatedRewardBox2.alpha = 1.0;
-            [self.animatedRewardBox2 addShowRewardBoxAnimation];
+            [self.animatedRewardBox2 addShowRewardBoxAnimationTotalDuration:rewardAnimation completionBlock:nil];
             break;
         case 3:
             self.animatedRewardBox3.alpha = 1.0;
-            [self.animatedRewardBox3 addShowRewardBoxAnimation];
+            [self.animatedRewardBox3 addShowRewardBoxAnimationTotalDuration:rewardAnimation completionBlock:nil];
             break;
             
         default:
@@ -119,8 +149,10 @@
 }
 
 -(void)showShareButtons:(id)sender {
+    
+    NSTimeInterval interval = [self adjustedDuration:0.68];
     self.animatedShareButtonView.alpha = 1.0;
-    [self.animatedShareButtonView addShowShareButtonAnimation];
+    [self.animatedShareButtonView addShowShareButtonAnimationTotalDuration:interval completionBlock:nil];
     
 }
 
@@ -128,7 +160,7 @@
     
     self.isAnimating = YES;
     
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:[self adjustedDuration:0.3] animations:^{
         self.darkOverlay.alpha = 0.85;
         
         self.animatedLevelNumberView.alpha = 1.0;
@@ -136,25 +168,31 @@
     
     
     __weak ViewController * weakSelf = self;
-    [self.animatedLevelNumberView addNumberCrashingAnimationCompletionBlock:^(BOOL finished) {
-        [weakSelf.animatedLevelNumberView addNumberRattlingAnimationCompletionBlock:^(BOOL finished) {
-            
-        }];
-        
+    
+    
+    NSTimeInterval crashAnimationInterval = [self adjustedDuration:0.85];
+    NSTimeInterval shakeAnimationInterval = [self adjustedDuration:0.1];
+    
+    [self.animatedLevelNumberView addNumberCrashingAnimationTotalDuration:crashAnimationInterval completionBlock:^(BOOL finished) {
+       [weakSelf.animatedLevelNumberView addNumberRattlingAnimationTotalDuration:shakeAnimationInterval completionBlock:^(BOOL finished) {
+           
+       }];
     }];
     
+    CGFloat delay = [self adjustedDuration:0.5];
     
-    CGFloat delay = 0.5;
+    [self performSelector:@selector(startRewardAnimation:) withObject:@1 afterDelay: [self adjustedDuration:delay + 0.0]];
+    [self performSelector:@selector(startRewardAnimation:) withObject:@2 afterDelay:[self adjustedDuration:delay + 0.12]];
+    [self performSelector:@selector(startRewardAnimation:) withObject:@3 afterDelay:[self adjustedDuration:delay + 0.24]];
     
-    [self performSelector:@selector(startRewardAnimation:) withObject:@1 afterDelay: delay + 0.0];
-    [self performSelector:@selector(startRewardAnimation:) withObject:@2 afterDelay:delay + 0.12];
-    [self performSelector:@selector(startRewardAnimation:) withObject:@3 afterDelay:delay + 0.24];
+    [self performSelector:@selector(showShareButtons:) withObject:nil afterDelay:[self adjustedDuration:delay + 0.2]];
     
-    [self performSelector:@selector(showShareButtons:) withObject:nil afterDelay:delay + 0.2];
     
+    
+    NSTimeInterval interval = [self adjustedDuration:1.2];
     
     self.animatedTitleView.alpha = 1.0;
-    [_animatedTitleView addDisplayAnimationCompletionBlock:^(BOOL finished) {
+    [_animatedTitleView addDisplayAnimationTotalDuration:interval completionBlock:^(BOOL finished) {
         _isFinishedAnimating = YES;
         _isAnimating = NO;
     }];

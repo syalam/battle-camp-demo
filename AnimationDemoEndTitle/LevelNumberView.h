@@ -13,6 +13,8 @@ IB_DESIGNABLE
 
 @property (nonatomic, assign) CGFloat  NumberCrashingAnimProgress;
 
+
+
 - (void)addNumberCrashingAnimation;
 - (void)addNumberCrashingAnimationCompletionBlock:(void (^)(BOOL finished))completionBlock;
 - (void)addNumberCrashingAnimationTotalDuration:(CFTimeInterval)totalDuration completionBlock:(void (^)(BOOL finished))completionBlock;

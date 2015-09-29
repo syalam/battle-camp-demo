@@ -10,10 +10,14 @@
 IB_DESIGNABLE
 @interface ShareButtonView : UIView
 
+@property (nonatomic, strong) UIButton * shareButton;
+
+@property (nonatomic, strong) UIButton * dismissButton;
 
 
 - (void)addShowShareButtonAnimation;
 - (void)addShowShareButtonAnimationCompletionBlock:(void (^)(BOOL finished))completionBlock;
+- (void)addShowShareButtonAnimationTotalDuration:(CFTimeInterval)duration completionBlock:(void (^)(BOOL finished))completionBlock;
 - (void)removeAnimationsForAnimationId:(NSString *)identifier;
 - (void)removeAllAnimations;
 

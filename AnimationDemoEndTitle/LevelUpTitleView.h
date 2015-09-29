@@ -15,6 +15,7 @@ IB_DESIGNABLE
 
 - (void)addDisplayAnimation;
 - (void)addDisplayAnimationCompletionBlock:(void (^)(BOOL finished))completionBlock;
+- (void)addDisplayAnimationTotalDuration:(CFTimeInterval)totalDuration completionBlock:(void (^)(BOOL finished))completionBlock;
 - (void)removeAnimationsForAnimationId:(NSString *)identifier;
 - (void)removeAllAnimations;
 

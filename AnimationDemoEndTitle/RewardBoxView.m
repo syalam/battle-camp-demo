@@ -120,9 +120,13 @@
 }
 
 - (void)addShowRewardBoxAnimationCompletionBlock:(void (^)(BOOL finished))completionBlock{
+    [self addShowRewardBoxAnimationTotalDuration:0.492 completionBlock:completionBlock];
+}
+
+- (void)addShowRewardBoxAnimationTotalDuration:(CFTimeInterval)totalDuration completionBlock:(void (^)(BOOL finished))completionBlock{
     if (completionBlock){
         CABasicAnimation * completionAnim = [CABasicAnimation animationWithKeyPath:@"completionAnim"];;
-        completionAnim.duration = 0.492;
+        completionAnim.duration = totalDuration;
         completionAnim.delegate = self;
         [completionAnim setValue:@"ShowRewardBox" forKey:@"animId"];
         [completionAnim setValue:@(NO) forKey:@"needEndAnim"];
@@ -138,13 +142,13 @@
                                     [NSValue valueWithCATransform3D:CATransform3DConcat(CATransform3DMakeScale(1.2, 1.2, 1), CATransform3DMakeTranslation(0, 5, 0))],
                                     [NSValue valueWithCATransform3D:CATransform3DIdentity]];
     textTransformAnim.keyTimes  = @[@0, @0.721, @1];
-    textTransformAnim.duration  = 0.313;
-    textTransformAnim.beginTime = 0.179;
+    textTransformAnim.duration  = 0.636 * totalDuration;
+    textTransformAnim.beginTime = 0.363 * totalDuration;
     
     CAKeyframeAnimation * textHiddenAnim = [CAKeyframeAnimation animationWithKeyPath:@"hidden"];
     textHiddenAnim.values                = @[@YES, @YES, @NO];
     textHiddenAnim.keyTimes              = @[@0, @0.924, @1];
-    textHiddenAnim.duration              = 0.198;
+    textHiddenAnim.duration              = 0.402 * totalDuration;
     
     CAAnimationGroup * textShowRewardBoxAnim = [QCMethod groupAnimations:@[textTransformAnim, textHiddenAnim] fillMode:fillMode];
     [self.layers[@"text"] addAnimation:textShowRewardBoxAnim forKey:@"textShowRewardBoxAnim"];
@@ -155,7 +159,7 @@
                                     [NSValue valueWithCATransform3D:CATransform3DMakeScale(2.1, 2.1, 1)],
                                     [NSValue valueWithCATransform3D:CATransform3DIdentity]];
     GroupTransformAnim.keyTimes = @[@0, @0.593, @1];
-    GroupTransformAnim.duration = 0.492;
+    GroupTransformAnim.duration =  totalDuration;
     
     CAAnimationGroup * GroupShowRewardBoxAnim = [QCMethod groupAnimations:@[GroupTransformAnim] fillMode:fillMode];
     

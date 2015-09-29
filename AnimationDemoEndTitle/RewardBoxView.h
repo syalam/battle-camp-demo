@@ -17,6 +17,7 @@ IB_DESIGNABLE
 
 - (void)addShowRewardBoxAnimation;
 - (void)addShowRewardBoxAnimationCompletionBlock:(void (^)(BOOL finished))completionBlock;
+- (void)addShowRewardBoxAnimationTotalDuration:(CFTimeInterval)totalDuration completionBlock:(void (^)(BOOL finished))completionBlock;
 - (void)removeAnimationsForAnimationId:(NSString *)identifier;
 - (void)removeAllAnimations;
 

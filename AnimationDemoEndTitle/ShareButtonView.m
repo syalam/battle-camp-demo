@@ -144,9 +144,16 @@
 }
 
 - (void)addShowShareButtonAnimationCompletionBlock:(void (^)(BOOL finished))completionBlock{
+    
+    [self addShowShareButtonAnimationTotalDuration:0.68 completionBlock:completionBlock];
+    
+    
+}
+
+- (void)addShowShareButtonAnimationTotalDuration:(CFTimeInterval)duration completionBlock:(void (^)(BOOL finished))completionBlock{
     if (completionBlock){
         CABasicAnimation * completionAnim = [CABasicAnimation animationWithKeyPath:@"completionAnim"];;
-        completionAnim.duration = 0.658;
+        completionAnim.duration = duration;
         completionAnim.delegate = self;
         [completionAnim setValue:@"ShowShareButton" forKey:@"animId"];
         [completionAnim setValue:@(NO) forKey:@"needEndAnim"];
@@ -162,7 +169,7 @@
     CAKeyframeAnimation * GroupPositionAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     GroupPositionAnim.values         = @[[NSValue valueWithCGPoint:CGPointMake(0.5 * CGRectGetWidth(Group.superlayer.bounds), 1.2 * CGRectGetHeight(Group.superlayer.bounds))], [NSValue valueWithCGPoint:CGPointMake(0.5 * CGRectGetWidth(Group.superlayer.bounds), 0.2 * CGRectGetHeight(Group.superlayer.bounds))], [NSValue valueWithCGPoint:CGPointMake(0.5 * CGRectGetWidth(Group.superlayer.bounds), 0.26441 * CGRectGetHeight(Group.superlayer.bounds))]];
     GroupPositionAnim.keyTimes       = @[@0, @0.79, @1];
-    GroupPositionAnim.duration       = 0.623;
+    GroupPositionAnim.duration       = 0.946 * duration;
     GroupPositionAnim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     
     CAAnimationGroup * GroupShowShareButtonAnim = [QCMethod groupAnimations:@[GroupPositionAnim] fillMode:fillMode];
@@ -174,7 +181,7 @@
     CAKeyframeAnimation * text2PositionAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     text2PositionAnim.values   = @[[NSValue valueWithCGPoint:CGPointMake(0.5 * CGRectGetWidth(text2.superlayer.bounds), 1.33333 * CGRectGetHeight(text2.superlayer.bounds))], [NSValue valueWithCGPoint:CGPointMake(0.5 * CGRectGetWidth(text2.superlayer.bounds), 1.33333 * CGRectGetHeight(text2.superlayer.bounds))], [NSValue valueWithCGPoint:CGPointMake(0.5 * CGRectGetWidth(text2.superlayer.bounds), 0.52 * CGRectGetHeight(text2.superlayer.bounds))], [NSValue valueWithCGPoint:CGPointMake(0.5 * CGRectGetWidth(text2.superlayer.bounds), 0.58987 * CGRectGetHeight(text2.superlayer.bounds))]];
     text2PositionAnim.keyTimes = @[@0, @0.131, @0.837, @1];
-    text2PositionAnim.duration = 0.658;
+    text2PositionAnim.duration = duration;
     
     CAAnimationGroup * text2ShowShareButtonAnim = [QCMethod groupAnimations:@[text2PositionAnim] fillMode:fillMode];
     [text2 addAnimation:text2ShowShareButtonAnim forKey:@"text2ShowShareButtonAnim"];
