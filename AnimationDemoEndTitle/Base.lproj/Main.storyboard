@@ -87,6 +87,18 @@
                                     <constraint firstAttribute="height" constant="90" id="3Uv-jU-xzk"/>
                                 </constraints>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bxR-4f-eMF">
+                                <rect key="frame" x="485" y="15" width="100" height="29"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="SXZ-eU-e3c"/>
+                                    <constraint firstAttribute="width" constant="100" id="p40-OB-PJ8"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Normal"/>
+                                    <segment title="Slow"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -101,7 +113,9 @@
                             <constraint firstItem="bZ2-GJ-N3L" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="NVh-Ob-LjL"/>
                             <constraint firstItem="GtD-Ka-EGo" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="50" id="SGI-6s-BVz"/>
                             <constraint firstItem="GtD-Ka-EGo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="VXI-0N-2cl"/>
+                            <constraint firstItem="bxR-4f-eMF" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="15" id="X7e-Sf-eYE"/>
                             <constraint firstItem="YN7-6y-yTM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="YcC-G1-bEm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bxR-4f-eMF" secondAttribute="trailing" constant="-5" id="hMO-pC-kyY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bZ2-GJ-N3L" secondAttribute="trailing" constant="-20" id="yNV-HG-Xg0"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BbF-6P-U1D" secondAttribute="bottom" id="yZE-V2-mye"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="GtD-Ka-EGo" secondAttribute="bottom" id="yby-Ht-hZH"/>
@@ -116,6 +130,7 @@
                         <outlet property="animatedShareButtonView" destination="C6W-8W-Bnp" id="VYY-ck-ig6"/>
                         <outlet property="animatedTitleView" destination="YN7-6y-yTM" id="E5D-SJ-iyk"/>
                         <outlet property="darkOverlay" destination="bZ2-GJ-N3L" id="Vvx-ps-zod"/>
+                        <outlet property="speedControl" destination="bxR-4f-eMF" id="qjc-qd-DLA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

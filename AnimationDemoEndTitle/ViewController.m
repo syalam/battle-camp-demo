@@ -29,7 +29,7 @@ typedef enum {
     // Do any additional setup after loading the view, typically from a nib.
     
     
-    self.animationSpeed = AnimationSpeedSlow;
+    self.animationSpeed = AnimationSpeedNormal;
     
     self.isAnimating = NO;
     self.isFinishedAnimating = NO;
@@ -62,6 +62,8 @@ typedef enum {
     self.animatedRewardBox3.rewardIcon = [UIImage imageNamed:@"starIcon"];
     self.animatedRewardBox3.rewardText = @"1 New Inventory Slot";
     
+    [self.speedControl addTarget:self action:@selector(handleSpeedChange:) forControlEvents:UIControlEventValueChanged];
+    
 }
 
 -(CGFloat)adjustedDuration:(CGFloat)duration
@@ -82,7 +84,32 @@ typedef enum {
     return  duration * adjustment;
     
 }
-
+-(void)handleSpeedChange:(UISegmentedControl *)sender
+{
+    
+    if(!self.isAnimating){
+        
+        switch (sender.selectedSegmentIndex) {
+            case 0:{
+                self.animationSpeed = AnimationSpeedNormal;
+            }
+                
+                break;
+                
+            case 1:
+            {
+                self.animationSpeed = AnimationSpeedSlow;
+            }
+                
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    
+}
 -(void)handleUserTap:(id)sender {
     
     if(!self.isAnimating){

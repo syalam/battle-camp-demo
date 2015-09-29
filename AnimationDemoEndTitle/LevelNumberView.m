@@ -10,10 +10,9 @@
 
 @interface LevelNumberView ()
 
-@property (nonatomic, assign) BOOL  updateLayerValueForCompletedAnimation;
-@property (nonatomic, assign) BOOL  animationAdded;
-@property (nonatomic, strong) NSMapTable * completionBlocks;
 @property (nonatomic, strong) NSMutableDictionary * layers;
+@property (nonatomic, strong) NSMapTable * completionBlocks;
+@property (nonatomic, assign) BOOL  updateLayerValueForCompletedAnimation;
 
 
 @end
@@ -42,21 +41,6 @@
     return self;
 }
 
-- (void)setNumberCrashingAnimProgress:(CGFloat)numberCrashingAnimProgress{
-    if(!self.animationAdded){
-        [self removeAllAnimations];
-        [self addNumberCrashingAnimation];
-        self.animationAdded = YES;
-        self.layer.speed = 0;
-        self.layer.timeOffset = 0;
-    }
-    else{
-        CGFloat totalDuration = 0.84;
-        CGFloat offset = numberCrashingAnimProgress * totalDuration;
-        self.layer.timeOffset = offset;
-    }
-}
-
 - (void)setFrame:(CGRect)frame{
     [super setFrame:frame];
     [self setupLayerFrames];
@@ -76,17 +60,16 @@
 - (void)setupLayers{
     self.backgroundColor = [UIColor colorWithRed:0.0879 green: 0.09 blue:0.108 alpha:1];
     
-    
-    UIView*  glow       = [[UIView alloc] initWithFrame:CGRectMake(0, -1, 320, 256)];
-    [self addSubview:glow];
+    CALayer * glow = [CALayer layer];
+    [self.layer addSublayer:glow];
     self.layers[@"glow"] = glow;
     
-    UIView*  topUpArrow       = [[UIView alloc] initWithFrame:CGRectMake(46, 21, 229, 117)];
-    [self addSubview:topUpArrow];
+    CALayer * topUpArrow = [CALayer layer];
+    [self.layer addSublayer:topUpArrow];
     self.layers[@"topUpArrow"] = topUpArrow;
     
-    UIView*  upArrow       = [[UIView alloc] initWithFrame:CGRectMake(94, 102, 133, 234)];
-    [self addSubview:upArrow];
+    CALayer * upArrow = [CALayer layer];
+    [self.layer addSublayer:upArrow];
     self.layers[@"upArrow"] = upArrow;
     
     CATextLayer * text = [CATextLayer layer];
@@ -102,19 +85,16 @@
     [CATransaction setDisableActions:YES];
     
     if(!layerIds || [layerIds containsObject:@"glow"]){
-        
-        UIView * glow = self.layers[@"glow"];
-        glow.layer.contents = (id)[UIImage imageNamed:@"glow"].CGImage;
+        CALayer * glow = self.layers[@"glow"];
+        glow.contents = (id)[UIImage imageNamed:@"glow"].CGImage;
     }
     if(!layerIds || [layerIds containsObject:@"topUpArrow"]){
-        UIView * topUpArrow = self.layers[@"topUpArrow"];
-        
-        topUpArrow.layer.contents = (id)[UIImage imageNamed:@"topUpArrow"].CGImage;
+        CALayer * topUpArrow = self.layers[@"topUpArrow"];
+        topUpArrow.contents = (id)[UIImage imageNamed:@"topUpArrow"].CGImage;
     }
     if(!layerIds || [layerIds containsObject:@"upArrow"]){
-        UIView * upArrow = self.layers[@"upArrow"];
-        
-        upArrow.layer.contents = (id)[UIImage imageNamed:@"upArrow"].CGImage;
+        CALayer * upArrow = self.layers[@"upArrow"];
+        upArrow.contents = (id)[UIImage imageNamed:@"upArrow"].CGImage;
     }
     if(!layerIds || [layerIds containsObject:@"text"]){
         CATextLayer * text = self.layers[@"text"];
@@ -138,17 +118,17 @@
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     
-    UIView * glow       = self.layers[@"glow"];
-    glow.frame          = CGRectMake(0, -0.00309 * CGRectGetHeight(glow.layer.superlayer.bounds),  CGRectGetWidth(glow.layer.superlayer.bounds), 0.53333 * CGRectGetHeight(glow.layer.superlayer.bounds));
+    CALayer * glow       = self.layers[@"glow"];
+    glow.frame           = CGRectMake(0, -0.00309 * CGRectGetHeight(glow.superlayer.bounds),  CGRectGetWidth(glow.superlayer.bounds), 0.53333 * CGRectGetHeight(glow.superlayer.bounds));
     
-    UIView * topUpArrow = self.layers[@"topUpArrow"];
-    topUpArrow.frame    = CGRectMake(0.14219 * CGRectGetWidth(topUpArrow.layer.superlayer.bounds), 0.04358 * CGRectGetHeight(topUpArrow.layer.superlayer.bounds), 0.71562 * CGRectGetWidth(topUpArrow.layer.superlayer.bounds), 0.24375 * CGRectGetHeight(topUpArrow.layer.superlayer.bounds));
+    CALayer * topUpArrow = self.layers[@"topUpArrow"];
+    topUpArrow.frame     = CGRectMake(0.14219 * CGRectGetWidth(topUpArrow.superlayer.bounds), 0.04358 * CGRectGetHeight(topUpArrow.superlayer.bounds), 0.71562 * CGRectGetWidth(topUpArrow.superlayer.bounds), 0.24375 * CGRectGetHeight(topUpArrow.superlayer.bounds));
     
-    UIView * upArrow    = self.layers[@"upArrow"];
-    upArrow.frame       = CGRectMake(0.29531 * CGRectGetWidth(upArrow.layer.superlayer.bounds), 0.21251 * CGRectGetHeight(upArrow.layer.superlayer.bounds), 0.41562 * CGRectGetWidth(upArrow.layer.superlayer.bounds), 0.48646 * CGRectGetHeight(upArrow.layer.superlayer.bounds));
+    CALayer * upArrow    = self.layers[@"upArrow"];
+    upArrow.frame        = CGRectMake(0.29531 * CGRectGetWidth(upArrow.superlayer.bounds), 0.21251 * CGRectGetHeight(upArrow.superlayer.bounds), 0.41562 * CGRectGetWidth(upArrow.superlayer.bounds), 0.48646 * CGRectGetHeight(upArrow.superlayer.bounds));
     
-    CATextLayer * text  = self.layers[@"text"];
-    text.frame          = CGRectMake(0.34504 * CGRectGetWidth(text.superlayer.bounds), 0.23044 * CGRectGetHeight(text.superlayer.bounds), 0.32063 * CGRectGetWidth(text.superlayer.bounds), 0.26852 * CGRectGetHeight(text.superlayer.bounds));
+    CATextLayer * text   = self.layers[@"text"];
+    text.frame           = CGRectMake(0.34504 * CGRectGetWidth(text.superlayer.bounds), 0.23044 * CGRectGetHeight(text.superlayer.bounds), 0.32063 * CGRectGetWidth(text.superlayer.bounds), 0.26852 * CGRectGetHeight(text.superlayer.bounds));
     
     [CATransaction commit];
 }
@@ -160,7 +140,7 @@
 }
 
 - (void)addNumberCrashingAnimationCompletionBlock:(void (^)(BOOL finished))completionBlock{
-    [self addNumberCrashingAnimationTotalDuration:0.835 completionBlock:completionBlock];
+    [self addNumberCrashingAnimationTotalDuration:0.834 completionBlock:completionBlock];
 }
 
 - (void)addNumberCrashingAnimationTotalDuration:(CFTimeInterval)totalDuration completionBlock:(void (^)(BOOL finished))completionBlock{
@@ -176,31 +156,54 @@
     
     NSString * fillMode = kCAFillModeForwards;
     
-    UIView * glow = self.layers[@"glow"];
-    [UIView animateKeyframesWithDuration:0 delay:0 options:0 animations:^{
-        [UIView addKeyframeWithRelativeStartTime:0.55 relativeDuration:0.21 animations:^{
-            glow.transform = CGAffineTransformIdentity;
-        }];
-        [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:0.62 animations:^{
-            glow.alpha = 0;
-        }];
-        [UIView addKeyframeWithRelativeStartTime:0.62 relativeDuration:0.38 animations:^{
-            glow.alpha = 1;
-        }];
-    } completion:^(BOOL finished) {
-    }];
+    CALayer * glow = self.layers[@"glow"];
     
-    UIView * topUpArrow = self.layers[@"topUpArrow"];
-    [UIView animateWithDuration:0.298 delay:0 options:0 animations:^{
-        topUpArrow.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL finished) {
-    }];
+    ////Glow animation
+    CAKeyframeAnimation * glowTransformAnim = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    glowTransformAnim.values    = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0, 0, 1)],
+                                    [NSValue valueWithCATransform3D:CATransform3DIdentity]];
+    glowTransformAnim.keyTimes  = @[@0, @1];
+    glowTransformAnim.duration  = 0.205 * totalDuration;
+    glowTransformAnim.beginTime = 0.523 * totalDuration;
     
-    UIView * upArrow = self.layers[@"upArrow"];
-    [UIView animateWithDuration:0.374 delay:0.1 options:0 animations:^{
-        upArrow.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL finished) {
-    }];
+    CAKeyframeAnimation * glowOpacityAnim = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+    glowOpacityAnim.values                = @[@0, @0, @1];
+    glowOpacityAnim.keyTimes              = @[@0, @0.624, @1];
+    glowOpacityAnim.duration              = 0.957 * totalDuration;
+    
+    CAAnimationGroup * glowNumberCrashingAnim = [QCMethod groupAnimations:@[glowTransformAnim, glowOpacityAnim] fillMode:fillMode];
+    [glow addAnimation:glowNumberCrashingAnim forKey:@"glowNumberCrashingAnim"];
+    
+    CALayer * topUpArrow = self.layers[@"topUpArrow"];
+    
+    ////TopUpArrow animation
+    CAKeyframeAnimation * topUpArrowTransformAnim = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    topUpArrowTransformAnim.values         = @[[NSValue valueWithCATransform3D:CATransform3DConcat(CATransform3DMakeScale(0.3, 3, 1), CATransform3DMakeTranslation(0, 0.83333 * CGRectGetHeight(topUpArrow.superlayer.bounds), 0))],
+                                               [NSValue valueWithCATransform3D:CATransform3DIdentity]];
+    topUpArrowTransformAnim.keyTimes       = @[@0.0667, @1];
+    topUpArrowTransformAnim.duration       = 0.357 * totalDuration;
+    topUpArrowTransformAnim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    
+    CAAnimationGroup * topUpArrowNumberCrashingAnim = [QCMethod groupAnimations:@[topUpArrowTransformAnim] fillMode:fillMode];
+    [topUpArrow addAnimation:topUpArrowNumberCrashingAnim forKey:@"topUpArrowNumberCrashingAnim"];
+    
+    CALayer * upArrow = self.layers[@"upArrow"];
+    
+    ////UpArrow animation
+    CAKeyframeAnimation * upArrowTransformAnim = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    
+    
+    
+    
+    upArrowTransformAnim.values         = @[[NSValue valueWithCATransform3D:CATransform3DConcat(CATransform3DMakeScale(0.5, 2.5, 1.0), CATransform3DMakeTranslation(0, 1.25 * CGRectGetHeight(upArrow.superlayer.bounds), 0.0))],
+                                            [NSValue valueWithCATransform3D:CATransform3DIdentity]];
+    upArrowTransformAnim.keyTimes       = @[@0, @1];
+    upArrowTransformAnim.duration       = 0.448 * totalDuration;
+    upArrowTransformAnim.beginTime      = 0.121 * totalDuration;
+    upArrowTransformAnim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    
+    CAAnimationGroup * upArrowNumberCrashingAnim = [QCMethod groupAnimations:@[upArrowTransformAnim] fillMode:fillMode];
+    [upArrow addAnimation:upArrowNumberCrashingAnim forKey:@"upArrowNumberCrashingAnim"];
     
     CATextLayer * text = self.layers[@"text"];
     
@@ -296,15 +299,12 @@
     else if([identifier isEqualToString:@"NumberRattling"]){
         [self.layers[@"text"] removeAnimationForKey:@"textNumberRattlingAnim"];
     }
-    self.layer.speed = 1;
 }
 
 - (void)removeAllAnimations{
     [self.layers enumerateKeysAndObjectsUsingBlock:^(id key, CALayer *layer, BOOL *stop) {
-        if([layer.class isSubclassOfClass:CALayer.class])
         [layer removeAllAnimations];
     }];
-    self.layer.speed = 1;
 }
 
 @end

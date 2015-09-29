@@ -27,6 +27,8 @@
 
 @property (nonatomic, strong) IBOutlet UIView * darkOverlay;
 
+@property (nonatomic, strong) IBOutlet UISegmentedControl * speedControl;
+
 
 @end
 
